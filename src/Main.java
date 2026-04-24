@@ -1,17 +1,30 @@
-import java.util.regex.Pattern;
+import java.util.*;
 
 public class Main {
 
+    static class GoodsBogie {
+        String type;
+        String cargo;
+
+        GoodsBogie(String type, String cargo) {
+            this.type = type;
+            this.cargo = cargo;
+        }
+    }
+
     public static void main(String[] args) {
 
-        String trainId = "TRN-1234";
-        String cargoCode = "PET-AB";
+        List<GoodsBogie> goodsBogies = new ArrayList<>();
 
-        // ---- UC11 CORE: REGEX VALIDATION ----
-        boolean isTrainValid = Pattern.matches("TRN-\\d{4}", trainId);
-        boolean isCargoValid = Pattern.matches("PET-[A-Z]{2}", cargoCode);
+        goodsBogies.add(new GoodsBogie("Cylindrical", "Petroleum"));
+        goodsBogies.add(new GoodsBogie("Rectangular", "Coal"));
 
-        System.out.println("Train ID Valid: " + isTrainValid);
-        System.out.println("Cargo Code Valid: " + isCargoValid);
+        boolean isSafe = goodsBogies.stream()
+                .allMatch(b ->
+                        (b.type.equals("Cylindrical") && b.cargo.equals("Petroleum")) ||
+                        (b.type.equals("Rectangular") && !b.cargo.equals("Petroleum"))
+                );
+
+        System.out.println("Safety Compliance: " + isSafe);
     }
 }
