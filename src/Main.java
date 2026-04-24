@@ -1,28 +1,35 @@
 public class Main {
 
-    static class InvalidCapacityException extends Exception {
-        InvalidCapacityException(String msg) {
+    static class CargoSafetyException extends RuntimeException {
+        CargoSafetyException(String msg) {
             super(msg);
         }
     }
 
-    static class PassengerBogie {
-        int capacity;
+    static class GoodsBogie {
+        String type;
+        String cargo;
 
-        PassengerBogie(int capacity) throws InvalidCapacityException {
-            if (capacity <= 0) {
-                throw new InvalidCapacityException("Capacity must be > 0");
+        void assignCargo(String type, String cargo) {
+            this.type = type;
+            if (type.equals("Rectangular") && cargo.equals("Petroleum")) {
+                throw new CargoSafetyException("Unsafe cargo assignment!");
             }
-            this.capacity = capacity;
+            this.cargo = cargo;
         }
     }
 
     public static void main(String[] args) {
 
+        GoodsBogie bogie = new GoodsBogie();
+
         try {
-            PassengerBogie b = new PassengerBogie(-10);
-        } catch (InvalidCapacityException e) {
+            bogie.assignCargo("Rectangular", "Petroleum");
+            System.out.println("Cargo assigned");
+        } catch (CargoSafetyException e) {
             System.out.println(e.getMessage());
+        } finally {
+            System.out.println("Operation completed.");
         }
     }
 }
