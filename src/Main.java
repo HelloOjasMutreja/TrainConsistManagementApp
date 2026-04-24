@@ -1,19 +1,24 @@
-import java.util.Arrays;
-
 public class Main {
 
     public static void main(String[] args) {
 
-        String[] bogieNames = {
-                "Sleeper",
-                "AC Chair",
-                "First Class",
-                "General"
-        };
+        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
 
-        Arrays.sort(bogieNames);
+        String searchId = "BG309";
 
-        System.out.println("Sorted Bogie Names:");
-        System.out.println(Arrays.toString(bogieNames));
+        boolean found = false;
+
+        for (String id : bogieIds) {
+            if (id.equals(searchId)) {
+                found = true;
+                break;
+            }
+        }
+
+        if (found) {
+            System.out.println("Bogie Found: " + searchId);
+        } else {
+            System.out.println("Bogie Not Found");
+        }
     }
 }
