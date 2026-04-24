@@ -1,32 +1,17 @@
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.regex.Pattern;
 
 public class Main {
 
-    static class Bogie {
-        String name;
-        int capacity;
-
-        Bogie(String name, int capacity) {
-            this.name = name;
-            this.capacity = capacity;
-        }
-    }
-
     public static void main(String[] args) {
 
-        List<Bogie> bogies = new ArrayList<>();
+        String trainId = "TRN-1234";
+        String cargoCode = "PET-AB";
 
-        bogies.add(new Bogie("Sleeper", 72));
-        bogies.add(new Bogie("AC Chair", 56));
-        bogies.add(new Bogie("First Class", 24));
-        bogies.add(new Bogie("Sleeper", 70));
+        // ---- UC11 CORE: REGEX VALIDATION ----
+        boolean isTrainValid = Pattern.matches("TRN-\\d{4}", trainId);
+        boolean isCargoValid = Pattern.matches("PET-[A-Z]{2}", cargoCode);
 
-        // ---- UC10 CORE: AGGREGATION ----
-        int totalSeats = bogies.stream()
-                .map(b -> b.capacity)
-                .reduce(0, Integer::sum);
-
-        System.out.println("Total Seating Capacity: " + totalSeats);
+        System.out.println("Train ID Valid: " + isTrainValid);
+        System.out.println("Cargo Code Valid: " + isCargoValid);
     }
 }
